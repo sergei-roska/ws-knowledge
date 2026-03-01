@@ -7,8 +7,8 @@
 #   core-update <VERSION> <TICKET-ID>
 #
 # Examples:
-#   core-update 10.6.3 GC-400
-#   core-update 10.7.0 IDW-500
+#   core-update 10.6.3 ID-123
+#   core-update 10.7.0 WEB-500
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

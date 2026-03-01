@@ -6,9 +6,9 @@
 #   feature-start <TICKET-ID> [category]
 #
 # Examples:
-#   feature-start GC-400            # → feature/GC-400
-#   feature-start GC-400 bugfix     # → bugfix/GC-400
-#   feature-start GC-400 hotfix     # → hotfix/GC-400
+#   feature-start ID-123            # → feature/ID-123
+#   feature-start ID-123 bugfix     # → bugfix/ID-123
+#   feature-start ID-123 hotfix     # → hotfix/ID-123
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
