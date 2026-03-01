@@ -27,7 +27,7 @@ alias lando-up='lando start && lando ssh'
 # Workflow Shortcuts
 # ==========================================
 # Define the root path to your custom scripts
-export WF_DIR="$HOME/Projects/workspace-scripts/workflows"
+export WF_DIR="$HOME/Projects/ws-knowledge/workflows"
 
 alias wf-start='$WF_DIR/feature-start.sh'
 alias wf-sync='$WF_DIR/sync-main.sh'
@@ -38,6 +38,9 @@ alias wf-core='$WF_DIR/core-update.sh'
 alias wf-push='$WF_DIR/feature-push.sh'
 alias wf-phpcs='$WF_DIR/phpcs-check.sh'
 alias wf-dbreset='$WF_DIR/db-reset.sh'
+
+# Ensure scripts are executable
+chmod +x $WF_DIR/*.sh
 ```
 
 *Don't forget to reload your shell after updating:*
@@ -56,7 +59,7 @@ Once configured, the following global commands (aliases) act as wrappers for the
 
 | Command | Target Script | Description |
 | :--- | :--- | :--- |
-| **`wf-start <ID>`** | `feature-start.sh` | Creates a new feature branch from a fresh `main` branch. Expected format: `wf-start TICKET-123`. |
+| **`wf-start <ID> [cat]`** | `feature-start.sh` | Creates a new feature branch. Optional category: `feature` (default), `bugfix`, `hotfix`. |
 | **`wf-sync`** | `sync-main.sh` | Merges the latest changes from the `main` branch into your currently active branch. |
 | **`wf-deploy`** | `drupal-deploy.sh` | Executes standard Drupal deployment steps: Update database (`updb`), import configurations (`cim`), and clear caches (`cr`). |
 | **`wf-cex`** | `config-export.sh` | Exports Drupal configurations (`cex`) and automatically stages the `config/` directory (`git add`). |

@@ -6,7 +6,7 @@
 #   db-reset                           # uses default dump file
 #   db-reset path/to/dump.sql.gz       # use specific dump file
 #
-# Default dump: sunstatespecialists.sql.gz (in project root)
+# Default dump: database.sql.gz (in project root)
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -14,7 +14,7 @@ source "$SCRIPT_DIR/wf-common.sh"
 
 require_lando_running
 
-DEFAULT_DUMP="sunstatespecialists.sql.gz"
+DEFAULT_DUMP="database.sql.gz"
 DUMP="${1:-$DEFAULT_DUMP}"
 
 [[ ! -f "$DUMP" ]] && wf_die "Dump file not found: $DUMP"
