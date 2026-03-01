@@ -21,46 +21,46 @@ CUSTOM_PATH="${1:-$DOCROOT/modules/custom}"
 [[ ! -d "$CUSTOM_PATH" ]] && wf_die "Custom path not found: ${CUSTOM_PATH}"
 
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-REPORT_FILE="security_audit_${TIMESTAMP}.txt"
+REPORT_FILE="security_audit_${TIMESTAMP}.md"
 
 wf_header "Security & Code Quality Analysis"
 wf_info "Target path: $CUSTOM_PATH"
 wf_info "Output file: $REPORT_FILE"
 
 # Initialize report
-echo "DRUPAL PROJECT SECURITY ANALYSIS REPORT" > "$REPORT_FILE"
-echo "Generated: $(date)" >> "$REPORT_FILE"
-echo "Project Path: $(pwd)" >> "$REPORT_FILE"
-echo "Target Path: $CUSTOM_PATH" >> "$REPORT_FILE"
+echo "# DRUPAL PROJECT SECURITY ANALYSIS REPORT" > "$REPORT_FILE"
+echo "**Generated:** $(date)" >> "$REPORT_FILE"
+echo "**Project Path:** $(pwd)" >> "$REPORT_FILE"
+echo "**Target Path:** $CUSTOM_PATH" >> "$REPORT_FILE"
 echo "" >> "$REPORT_FILE"
 
 log_section() {
   local section_name="$1"
-  echo "=========================================" >> "$REPORT_FILE"
+  echo "## $section_name" >> "$REPORT_FILE"
   echo -e "${_B}→${_N} $section_name"
-  echo "$section_name" >> "$REPORT_FILE"
-  echo "=========================================" >> "$REPORT_FILE"
   echo "" >> "$REPORT_FILE"
 }
 
 # 1. PHPCS
 log_section "1. PHPCS (PHP Code Sniffer) Analysis"
-if command -v phpcs &> /dev/null; then
+if command -v lando &> /dev/null && lando list 2>/dev/null | grep -q "Running"; then
   # Using '|| true' so pipefail doesn't crash the script on warnings/errors
+  lando phpcs --standard=Drupal --extensions=php,module,inc,theme "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
+elif command -v phpcs &> /dev/null; then
   phpcs --standard=Drupal --extensions=php,module,inc,theme "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
 else
-  echo "[Warning] PHPCS not installed or not in PATH" | tee -a "$REPORT_FILE"
+  echo "[Warning] PHPCS not installed or not in PATH (and lando not running)" | tee -a "$REPORT_FILE"
 fi
 echo "" >> "$REPORT_FILE"
 
 # 2. PHPStan
 log_section "2. PHPStan Static Analysis"
-if command -v phpstan &> /dev/null; then
-  phpstan analyse --level=1 "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
-elif lando phpstan --version &> /dev/null; then
+if command -v lando &> /dev/null && lando list 2>/dev/null | grep -q "Running"; then
   lando phpstan analyse --level=1 "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
+elif command -v phpstan &> /dev/null; then
+  phpstan analyse --level=1 "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
 else
-  echo "[Warning] PHPStan not installed" | tee -a "$REPORT_FILE"
+  echo "[Warning] PHPStan not installed (and lando not running)" | tee -a "$REPORT_FILE"
 fi
 echo "" >> "$REPORT_FILE"
 
@@ -112,10 +112,9 @@ else
 fi
 echo "" >> "$REPORT_FILE"
 
-# Finalize
-echo "=========================================" >> "$REPORT_FILE"
-echo "ANALYSIS COMPLETED: $(date)" >> "$REPORT_FILE"
-echo "=========================================" >> "$REPORT_FILE"
+echo "---" >> "$REPORT_FILE"
+echo "**ANALYSIS COMPLETED:** $(date)" >> "$REPORT_FILE"
+echo "---" >> "$REPORT_FILE"
 
 wf_header "Audit Complete"
 wf_ok "Analysis completed successfully!"
