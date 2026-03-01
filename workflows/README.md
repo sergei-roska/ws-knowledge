@@ -37,6 +37,7 @@ alias wf-build='$WF_DIR/theme-build.sh'
 alias wf-core='$WF_DIR/core-update.sh'
 alias wf-push='$WF_DIR/feature-push.sh'
 alias wf-phpcs='$WF_DIR/phpcs-check.sh'
+alias wf-audit='$WF_DIR/security-audit.sh'
 alias wf-dbreset='$WF_DIR/db-reset.sh'
 
 # Ensure scripts are executable
@@ -67,6 +68,7 @@ Once configured, the following global commands (aliases) act as wrappers for the
 | **`wf-core`** | `core-update.sh` | Initiates a Drupal core system update workflow. |
 | **`wf-push`** | `feature-push.sh` | Pushes your current active branch to the remote repository. |
 | **`wf-phpcs`** | `phpcs-check.sh` | Runs PHP CodeSniffer (`phpcs`) to validate code against strict Drupal coding standards. |
+| **`wf-audit`** | `security-audit.sh` | Runs a comprehensive security & code quality audit (PHPCS, PHPStan, Semgrep, Composer) and generates a report. |
 | **`wf-dbreset`** | `db-reset.sh` | Resets the database state (typically importing a fresh backup/dump). |
 
 ---
