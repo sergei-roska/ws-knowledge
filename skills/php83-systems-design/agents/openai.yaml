@@ -1,0 +1,3 @@
+interface:
+  display_name: "PHP 8.3 Systems Design"
+  short_description: "Modern PHP 8.3 patterns for Drupal: strict types, enums, match, readonly, DI, and attributes"

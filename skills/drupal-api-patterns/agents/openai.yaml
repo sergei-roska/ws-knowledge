@@ -1,0 +1,3 @@
+interface:
+  display_name: "Drupal API Patterns"
+  short_description: "Correct Drupal 10/11 API usage for hooks, forms, entities, render, routing, events, plugins, and services"

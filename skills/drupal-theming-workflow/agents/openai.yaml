@@ -1,0 +1,3 @@
+interface:
+  display_name: "Drupal Theming Workflow"
+  short_description: "SDC components, libraries, preprocess, breakpoints, and responsive images for Drupal themes"

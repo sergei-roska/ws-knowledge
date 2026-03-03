@@ -1,0 +1,3 @@
+interface:
+  display_name: "CI/CD Risk: Azure + Acquia"
+  short_description: "Release risk assessment and go/no-go checklist"

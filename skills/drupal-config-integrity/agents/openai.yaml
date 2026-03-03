@@ -1,0 +1,3 @@
+interface:
+  display_name: "Drupal Config Integrity"
+  short_description: "Safe Drupal config sync and environment integrity"

@@ -1,0 +1,35 @@
+rules:
+  - id: wf-ssrf-drupal-http-client
+    message: "Potential SSRF: dynamic URL used in Drupal HTTP client request."
+    severity: WARNING
+    languages:
+      - php
+    metadata:
+      category: security
+      cwe: "CWE-918"
+      technology:
+        - drupal
+        - php
+    pattern-either:
+      - pattern: \Drupal::httpClient()->request($METHOD, $URL, ...)
+      - pattern: \Drupal::httpClient()->get($URL, ...)
+      - pattern: \Drupal::httpClient()->post($URL, ...)
+
+  - id: wf-ssrf-http-client-variable
+    message: "Potential SSRF: dynamic URL used in HTTP client variable request."
+    severity: WARNING
+    languages:
+      - php
+    metadata:
+      category: security
+      cwe: "CWE-918"
+      technology:
+        - php
+    patterns:
+      - pattern-either:
+          - pattern: $HTTP_CLIENT->request($METHOD, $URL, ...)
+          - pattern: $HTTP_CLIENT->get($URL, ...)
+          - pattern: $HTTP_CLIENT->post($URL, ...)
+      - metavariable-regex:
+          metavariable: $HTTP_CLIENT
+          regex: (?i).*(http|guzzle|client).*

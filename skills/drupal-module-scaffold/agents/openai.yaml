@@ -1,0 +1,3 @@
+interface:
+  display_name: "Drupal Module Scaffold"
+  short_description: "Scaffold custom Drupal 10/11 modules, plugins, forms, services, and event subscribers"

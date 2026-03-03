@@ -1,0 +1,3 @@
+interface:
+  display_name: "Accessibility-First Frontend"
+  short_description: "Semantic HTML, ARIA, keyboard access, and SDC accessibility for Drupal themes"

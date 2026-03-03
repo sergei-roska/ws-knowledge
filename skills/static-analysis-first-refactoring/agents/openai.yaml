@@ -1,0 +1,3 @@
+interface:
+  display_name: "Static Analysis First Refactoring"
+  short_description: "PHPCS/PHPStan/Psalm-first safe refactoring workflow"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Rule Router"
+  short_description: "Select and apply rules by context"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Drupal Troubleshoot"
+  short_description: "WSOD diagnosis, watchdog analysis, Xdebug, stack traces, common Drupal errors, and drush diagnostics"

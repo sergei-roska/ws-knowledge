@@ -56,7 +56,9 @@ echo "" >> "$REPORT_FILE"
 # 2. PHPStan
 log_section "2. PHPStan Static Analysis"
 if command -v lando &> /dev/null && lando list 2>/dev/null | grep -q "Running"; then
-  lando phpstan analyse --level=1 "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
+  lando php ./vendor/bin/phpstan analyse --configuration=phpstan.neon --level=1 "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
+elif [[ -x "./vendor/bin/phpstan" ]]; then
+  ./vendor/bin/phpstan analyse --configuration=phpstan.neon --level=1 "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
 elif command -v phpstan &> /dev/null; then
   phpstan analyse --level=1 "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
 else
@@ -71,7 +73,12 @@ if command -v semgrep &> /dev/null; then
   semgrep --config=p/xss "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
   
   echo -e "\n>> Running SSRF detection..." | tee -a "$REPORT_FILE"
-  semgrep --config=p/ssrf "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
+  SSRF_RULESET="$SCRIPT_DIR/semgrep-ssrf-rules.yml"
+  if [[ -f "$SSRF_RULESET" ]]; then
+    semgrep --config="$SSRF_RULESET" "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true
+  else
+    echo "[Warning] SSRF ruleset not found at $SSRF_RULESET" | tee -a "$REPORT_FILE"
+  fi
   
   echo -e "\n>> Running security audit detection..." | tee -a "$REPORT_FILE"
   semgrep --config=p/security-audit "$CUSTOM_PATH" 2>&1 | tee -a "$REPORT_FILE" || true

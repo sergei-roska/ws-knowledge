@@ -47,8 +47,8 @@ require_lando() {
 
 require_lando_running() {
   require_lando
-  # Check if appserver container is running
-  if ! lando list 2>/dev/null | grep -q "Running"; then
+  # Check if container is running (supports different lando outputs)
+  if ! lando list 2>/dev/null | grep -q -E "Running|running: true"; then
     wf_die "Lando is not running. Start it first: lando start"
   fi
 }
