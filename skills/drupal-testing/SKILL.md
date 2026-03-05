@@ -24,7 +24,7 @@ Before writing a test, classify what you need to verify:
 
 ## Test Directory Structure
 
-```
+```text
 my_module/
 └── tests/
     └── src/
@@ -43,12 +43,14 @@ Namespace: `Drupal\Tests\{module_name}\{Type}\{ClassName}`.
 ## Test Type Patterns
 
 ### Unit Tests
+
 - Extend `Drupal\Tests\UnitTestCase`.
 - No Drupal bootstrap — fastest to run.
 - Mock all dependencies via `$this->createMock()`.
 - Good for: data transforms, utility functions, value objects, enums.
 
 ### Kernel Tests
+
 - Extend `Drupal\KernelTests\KernelTestBase`.
 - Partial Drupal bootstrap with database.
 - Install modules via `protected static $modules = ['my_module', 'node'];`.
@@ -57,12 +59,14 @@ Namespace: `Drupal\Tests\{module_name}\{Type}\{ClassName}`.
 - Good for: services, entity queries, config logic, plugin behavior.
 
 ### Functional Tests
+
 - Extend `Drupal\Tests\BrowserTestBase`.
 - Full Drupal install per test class.
 - Use `$this->drupalGet()`, `$this->submitForm()`, `$this->assertSession()`.
 - Good for: forms, routing, access control, page content.
 
 ### WebDriver Tests
+
 - Extend `Drupal\FunctionalJavascriptTests\WebDriverTestBase`.
 - Full browser with JS execution.
 - Use `$this->assertSession()->waitForElement()` for AJAX.
@@ -71,11 +75,13 @@ Namespace: `Drupal\Tests\{module_name}\{Type}\{ClassName}`.
 ## Writing Tests
 
 ### Setup
+
 - Use `setUp()` for common fixtures (users, content types, nodes).
 - Create test users with specific permissions via `$this->drupalCreateUser(['perm'])`.
 - Create content via `$this->drupalCreateNode(['type' => 'article'])`.
 
 ### Assertions
+
 - `$this->assertEquals($expected, $actual)` — value equality.
 - `$this->assertSession()->pageTextContains('text')` — page content.
 - `$this->assertSession()->statusCodeEquals(200)` — HTTP status.
@@ -83,6 +89,7 @@ Namespace: `Drupal\Tests\{module_name}\{Type}\{ClassName}`.
 - `$this->assertCount(3, $results)` — collection size.
 
 ### Test Isolation
+
 - Each test method runs independently — no state leaks between tests.
 - Kernel tests: call `$this->installSchema()` for custom tables.
 - Functional tests: full site install per class (slow) — keep test classes focused.
@@ -90,19 +97,25 @@ Namespace: `Drupal\Tests\{module_name}\{Type}\{ClassName}`.
 ## Running Tests
 
 ### Local (Lando)
+
 ```bash
+
 # Run all tests for a module
+
 lando php vendor/bin/phpunit -c phpunit.xml --testsuite unit
 lando php vendor/bin/phpunit docroot/modules/custom/my_module/tests/
 
 # Run a specific test class
+
 lando php vendor/bin/phpunit --filter=ExampleServiceTest
 
 # Run a specific test method
+
 lando php vendor/bin/phpunit --filter=testEmptyRequirements
 ```
 
 ### CI
+
 - Ensure `phpunit.xml` is committed with correct test suite directories.
 - Set `SIMPLETEST_BASE_URL`, `SIMPLETEST_DB` environment variables.
 - Functional tests need a running web server and database.

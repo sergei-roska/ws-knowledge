@@ -48,7 +48,9 @@ chmod +x $WF_DIR/*.sh
 
 ```bash
 source ~/.bashrc  # For Bash
+
 # OR
+
 source ~/.zshrc   # For Zsh
 ```
 

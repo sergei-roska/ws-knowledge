@@ -31,6 +31,7 @@ Confirm the fix, add tests or monitoring to prevent recurrence.
 ### Immediate Steps
 
 1. Check PHP error log:
+
    ```bash
    # Lando
    lando ssh -c "tail -50 /tmp/drupal-error.log"
@@ -39,6 +40,7 @@ Confirm the fix, add tests or monitoring to prevent recurrence.
    ```
 
 2. Enable error display temporarily:
+
    ```php
    // In sites/default/settings.local.php
    $config['system.logging']['error_level'] = 'verbose';
@@ -47,12 +49,14 @@ Confirm the fix, add tests or monitoring to prevent recurrence.
    ```
 
 3. Try minimal bootstrap:
+
    ```bash
    drush status
    drush ev "echo 'Bootstrap OK';"
    ```
 
 4. If drush fails, check `settings.php` and database connection:
+
    ```bash
    drush sql:connect
    ```
@@ -70,16 +74,21 @@ Confirm the fix, add tests or monitoring to prevent recurrence.
 ### Reading Logs
 
 ```bash
+
 # Recent watchdog entries
+
 drush watchdog:show --count=20
 
 # Filter by severity
+
 drush watchdog:show --severity=error --count=50
 
 # Filter by type
+
 drush watchdog:show --type=php --count=20
 
 # Tail mode (continuous)
+
 drush watchdog:tail
 ```
 
@@ -94,7 +103,9 @@ drush watchdog:tail
 ### Lando Configuration
 
 ```yaml
+
 # .lando.yml
+
 config:
   xdebug: true
   config:
@@ -102,7 +113,9 @@ config:
 ```
 
 ```ini
+
 # .lando/php.ini
+
 [xdebug]
 xdebug.mode = debug
 xdebug.start_with_request = yes
@@ -115,9 +128,13 @@ xdebug.idekey = VSCODE
 ### Debugging Drush Commands
 
 ```bash
+
 # Trigger Xdebug for drush
+
 XDEBUG_SESSION=1 drush cr
+
 # Or with lando
+
 lando drush cr  # Xdebug auto-triggers if enabled in .lando.yml
 ```
 
@@ -148,24 +165,32 @@ lando drush cr  # Xdebug auto-triggers if enabled in .lando.yml
 ### "The website encountered an unexpected error"
 
 ```bash
+
 # Check recent log entries for the actual error
+
 drush watchdog:show --severity=error --count=5
 ```
 
 ### "Access denied" unexpectedly
 
 ```bash
+
 # Check permissions for a specific route
+
 drush user:role:list
 drush role:perm:list <role>
+
 # Rebuild permissions
+
 drush php-eval "node_access_rebuild();"
 ```
 
 ### Entity/Field errors
 
 ```bash
+
 # Check for mismatched entity/field definitions
+
 drush entity:updates
 drush updatedb --no-cache-clear
 drush cr
@@ -174,20 +199,30 @@ drush cr
 ### Configuration sync errors
 
 ```bash
+
 # Check config status
+
 drush config:status
+
 # Import with verbose output
+
 drush config:import -y --diff
+
 # Show a specific config difference
+
 drush config:diff system.site
 ```
 
 ### Module enable/disable issues
 
 ```bash
+
 # Check for missing modules
+
 drush pm:list --status=enabled --no-core | grep -i "missing"
+
 # Remove missing module from DB
+
 drush sql:query "DELETE FROM key_value WHERE collection='system.schema' AND name='broken_module';"
 drush cr
 ```
@@ -195,59 +230,79 @@ drush cr
 ### Cache issues
 
 ```bash
+
 # Full cache rebuild (the nuclear option)
+
 drush cr
+
 # Selective cache clear
+
 drush cache:clear render
 drush cache:clear discovery
 drush cache:clear menu
+
 # If drush itself fails, clear via filesystem
+
 rm -rf sites/default/files/php/
 ```
 
 ## Drush Diagnostic Commands
 
 ```bash
+
 # System status overview
+
 drush status
 drush core:requirements --severity=error
 
 # PHP info
+
 drush php:eval "phpinfo();"
 
 # Database connectivity
+
 drush sql:connect
 drush sql:query "SELECT 1;"
 
 # Cron status
+
 drush core:cron
 
 # Queue diagnostics
+
 drush queue:list
 drush queue:run <queue_name>
 
 # State values
+
 drush state:get system.cron_last
 drush state:get system.maintenance_mode
 
 # Route debugging
+
 drush route:list --path=/node/1
 
 # Service container check
+
 drush ev "\Drupal::service('entity_type.manager');"
 ```
 
 ## Performance Diagnostics
 
 ```bash
+
 # Enable query logging temporarily
+
 drush ev "\Drupal::database()->startLog(); /* run operation */ print_r(\Drupal::database()->getLog());"
 
 # Check cache hit rates
+
 drush ev "print_r(\Drupal::cache('render')->get('some_cid'));"
 
 # Views query inspection
+
 # Enable Views UI query display in admin/structure/views
+
 ```
 
 ## Required Checks

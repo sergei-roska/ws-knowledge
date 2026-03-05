@@ -67,7 +67,7 @@ When using the `figma-desktop` MCP and the user has NOT provided a URL, the tool
 
 Run `get_design_context` with the extracted file key and node ID.
 
-```
+```javascript
 get_design_context(fileKey=":fileKey", nodeId="1-2")
 ```
 
@@ -89,7 +89,7 @@ This provides the structured data including:
 
 Run `get_screenshot` with the same file key and node ID for a visual reference.
 
-```
+```javascript
 get_screenshot(fileKey=":fileKey", nodeId="1-2")
 ```
 
@@ -170,7 +170,7 @@ Before marking complete, validate the final UI against the Figma screenshot.
 
 ### Example 1: Implementing a Button Component
 
-User says: "Implement this Figma button component: https://figma.com/design/kL9xQn2VwM8pYrTb4ZcHjF/DesignSystem?node-id=42-15"
+User says: "Implement this Figma button component: <https://figma.com/design/kL9xQn2VwM8pYrTb4ZcHjF/DesignSystem?node-id=42-15>"
 
 **Actions:**
 
@@ -187,7 +187,7 @@ User says: "Implement this Figma button component: https://figma.com/design/kL9x
 
 ### Example 2: Building a Dashboard Layout
 
-User says: "Build this dashboard: https://figma.com/design/pR8mNv5KqXzGwY2JtCfL4D/Dashboard?node-id=10-5"
+User says: "Build this dashboard: <https://figma.com/design/pR8mNv5KqXzGwY2JtCfL4D/Dashboard?node-id=10-5>"
 
 **Actions:**
 

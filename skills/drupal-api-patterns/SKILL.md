@@ -26,18 +26,21 @@ Before writing code, classify the task:
 ## Core Patterns
 
 ### 1. Hooks
+
 - Keep `.module` hooks thin: validate arguments, delegate to an injected service.
 - Always match exact hook signature from `*.api.php`; verify with Context7 or core source when unsure.
 - Prefer `hook_entity_*` over `hook_node_*` unless node-specific behavior is required.
 - Transition plan: hooks that contain business logic should migrate to event subscribers when Drupal 11 hook events are available.
 
 ### 2. Form API
+
 - Extend `FormBase` for custom forms, `ConfigFormBase` for admin settings, `ConfirmFormBase` for destructive actions.
 - Inject services via `create()` + `ContainerInterface`, never `\Drupal::service()`.
 - Validate in `validateForm()`, act in `submitForm()` — never mix.
 - Return `$form` array from `buildForm()`; do not render HTML strings.
 
 ### 3. Entity API
+
 - Use `EntityTypeManagerInterface` for storage and access, not static `Node::load()`.
 - Use entity query (`\Drupal::entityQuery` or injected `QueryFactory`) with explicit `accessCheck(TRUE|FALSE)`.
 - Always declare `accessCheck()` — omitting it triggers deprecation in D10 and error in D11.
@@ -45,36 +48,42 @@ Before writing code, classify the task:
 - Prefer `EntityViewBuilder` and view modes over manual field rendering.
 
 ### 4. Render Arrays
+
 - Every render array that varies by context must carry `#cache` metadata: `tags`, `contexts`, `max-age`.
 - Bubble cache metadata from child elements — never strip or flatten.
 - Use `#lazy_builder` for personalized or uncacheable fragments inside otherwise cacheable pages.
 - Prefer `#theme` with a Twig template over inline `#markup` for anything beyond trivial output.
 
 ### 5. Routing
+
 - Define routes in `*.routing.yml` with typed parameters and `_access_check` or `_permission`.
 - Controller methods return a render array or `Response`/`JsonResponse`, not printed output.
 - Use `_entity_access` requirement for entity routes instead of custom access logic.
 - Parameter upcasting: use `{node}` (not `{nid}`) to get automatic entity loading.
 
 ### 6. Event System
+
 - Implement `EventSubscriberInterface` with `getSubscribedEvents()` returning event class constants.
 - Register as tagged service: `tags: [{ name: event_subscriber }]`.
 - Prefer events over hooks for logic that: crosses module boundaries, requires priority ordering, or needs testable isolation.
 - Drupal 11: hook-based events (`Hook` attribute) — use when the project targets D11+.
 
 ### 7. Plugin API
+
 - Use PHP attributes (`#[Block(...)]`, `#[Action(...)]`) for Drupal 10.3+/11.
 - Fall back to annotations only if project requires Drupal < 10.3 compatibility.
 - Plugin classes live in `src/Plugin/{Type}/` following PSR-4.
 - Inject services via `ContainerFactoryPluginInterface` + `create()`.
 
 ### 8. Services & DI
+
 - Define in `*.services.yml` with explicit class, typed arguments.
 - Use constructor injection with promoted properties.
 - Use service decoration to alter core services instead of monkey-patching.
 - Tag services for collector patterns (e.g., `event_subscriber`, `breadcrumb_builder`).
 
 ### 9. Queue API
+
 - Extend `QueueWorkerBase` with `#[QueueWorker(...)]` attribute.
 - Implement `processItem($data)` with idempotent logic.
 - Handle failures gracefully — throw `RequeueException` for retryable, `SuspendQueueException` for systemic issues.

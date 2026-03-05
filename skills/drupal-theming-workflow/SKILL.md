@@ -25,7 +25,7 @@ Compile assets, clear cache, test across breakpoints.
 
 ## Theme File Structure
 
-```
+```text
 my_theme/
 ├── components/                    # SDC components (D10.1+)
 │   └── card/
@@ -59,7 +59,9 @@ my_theme/
 - Props are validated — define `schema` in `component.yml` for type checking.
 
 ```yaml
+
 # card.component.yml
+
 name: Card
 status: stable
 props:
@@ -133,7 +135,9 @@ function my_theme_preprocess_node(&$variables): void {
 ## Breakpoints
 
 ```yaml
+
 # my_theme.breakpoints.yml
+
 my_theme.mobile:
   label: Mobile
   mediaQuery: '(max-width: 767px)'
@@ -167,6 +171,7 @@ my_theme.desktop:
 ## Twig Debugging
 
 Enable in `sites/development.services.yml`:
+
 ```yaml
 parameters:
   twig.config:
@@ -176,6 +181,7 @@ parameters:
 ```
 
 Useful Twig functions:
+
 - `{{ dump(variable) }}` — inspect variable content.
 - `{{ kint(variable) }}` — structured debug output (requires Devel + Kint).
 - Template suggestions appear as `<!-- FILE NAME SUGGESTIONS -->` in HTML source.

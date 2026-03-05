@@ -2,7 +2,7 @@
 
 ## Full Module File Tree (example)
 
-```
+```text
 my_module/
 ├── config/
 │   ├── install/
@@ -33,6 +33,7 @@ my_module/
 ```
 
 ## info.yml
+
 ```yaml
 name: 'My Module'
 type: module
@@ -45,6 +46,7 @@ dependencies:
 ```
 
 ## services.yml
+
 ```yaml
 services:
   my_module.example_service:
@@ -59,6 +61,7 @@ services:
 ```
 
 ## routing.yml
+
 ```yaml
 my_module.settings:
   path: '/admin/config/my-module/settings'
@@ -78,6 +81,7 @@ my_module.report:
 ```
 
 ## permissions.yml
+
 ```yaml
 administer my module settings:
   title: 'Administer My Module settings'
@@ -89,6 +93,7 @@ access my module reports:
 ```
 
 ## links.menu.yml
+
 ```yaml
 my_module.settings:
   title: 'My Module Settings'
@@ -99,6 +104,7 @@ my_module.settings:
 ```
 
 ## Config: config/install/my_module.settings.yml
+
 ```yaml
 api_url: ''
 sync_enabled: false
@@ -106,6 +112,7 @@ items_per_page: 10
 ```
 
 ## Config Schema: config/schema/my_module.schema.yml
+
 ```yaml
 my_module.settings:
   type: config_object
@@ -123,6 +130,7 @@ my_module.settings:
 ```
 
 ## .module (thin hooks only)
+
 ```php
 <?php
 
@@ -151,6 +159,7 @@ function my_module_theme(): array {
 ```
 
 ## Block Plugin with DI
+
 ```php
 <?php
 
@@ -210,6 +219,7 @@ final class ExampleBlock extends BlockBase implements ContainerFactoryPluginInte
 ```
 
 ## ConfigFormBase
+
 ```php
 <?php
 
@@ -262,6 +272,7 @@ final class SettingsForm extends ConfigFormBase {
 ```
 
 ## Controller
+
 ```php
 <?php
 
@@ -286,6 +297,7 @@ final class ReportController extends ControllerBase {
 ```
 
 ## Service
+
 ```php
 <?php
 
@@ -307,6 +319,7 @@ final class ExampleService {
 ```
 
 ## Event Subscriber
+
 ```php
 <?php
 
@@ -334,6 +347,7 @@ final class EntityPresaveSubscriber implements EventSubscriberInterface {
 ```
 
 ## Twig Template
+
 ```twig
 {#
 /**

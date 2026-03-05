@@ -33,18 +33,21 @@ Do not change runtime behavior unless explicitly required by the task.
 ## Tool-Specific Guidance
 
 ### PHPCS / PHPCBF
+
 - Standards: `Drupal,DrupalPractice` for Drupal projects.
 - Extensions: `php,module,inc,install,test,profile,theme`.
 - Run `phpcbf` before `phpcs` — fixes formatting automatically, reduces noise.
 - Separate formatting-only commits from logic-change commits.
 
 ### PHPStan
+
 - Target Level 8 minimum; Level 9 (strict mixed) for greenfield code.
 - Handle nullability explicitly: use `?Type` parameters, null coalescing, early returns.
 - Treat every `@phpstan-ignore` as technical debt — resolve root cause first.
 - Use `phpstan-drupal` extension for Drupal-aware analysis.
 
 ### Psalm
+
 - Use for deeper type inference and dead-code detection beyond PHPStan.
 - Enable taint analysis (`--taint-analysis`) for security-sensitive modules (forms, API endpoints).
 - Resolve `PossiblyNull`, `MixedArgument`, `UnusedVariable` findings before suppressions.

@@ -53,6 +53,7 @@ Provide pre-deploy checks, deploy order, post-deploy verification, and rollback 
 ## Output Contract
 
 Return a short, actionable release note with:
+
 - change scope;
 - risk matrix by area (code/config/schema/cache/dependencies);
 - mitigations and required commands;

@@ -30,10 +30,12 @@ This skill ensures every new piece of code starts with proper PSR-4 layout, DI p
 ## Module Skeleton (minimum)
 
 Every custom module requires at minimum:
+
 - `my_module.info.yml` — module metadata.
 - `src/` — PSR-4 root for all PHP classes.
 
 Additional files based on need:
+
 - `my_module.module` — only for hooks that cannot be expressed as services/plugins.
 - `my_module.install` — install/uninstall hooks, schema definitions, and `hook_update_N()`.
 - `my_module.services.yml` — service definitions and event subscribers.
@@ -49,16 +51,19 @@ Additional files based on need:
 ## Component Scaffolding
 
 ### Block Plugin
-```
+
+```text
 src/Plugin/Block/{BlockName}Block.php
 ```
+
 - Use `#[Block]` attribute (D10.2+).
 - Extend `BlockBase`.
 - Implement `ContainerFactoryPluginInterface` if injecting services.
 - Include `#cache` metadata in `build()` return.
 
 ### Field Type / Widget / Formatter
-```
+
+```text
 src/Plugin/Field/FieldType/{FieldName}Item.php
 src/Plugin/Field/FieldWidget/{FieldName}Widget.php
 src/Plugin/Field/FieldFormatter/{FieldName}Formatter.php
@@ -66,46 +71,57 @@ config/schema/{module}.schema.yml
 ```
 
 ### Form
-```
+
+```text
 src/Form/{FormName}Form.php
 my_module.routing.yml  (add route entry)
 ```
+
 - Extend `FormBase`, `ConfigFormBase`, or `ConfirmFormBase`.
 - For config forms: add `config/install/` and `config/schema/`.
 
 ### Controller
-```
+
+```text
 src/Controller/{ControllerName}Controller.php
 my_module.routing.yml  (add route entry)
 ```
+
 - Return render array or Response, never print.
 - Use entity upcasting in route parameters.
 
 ### Service
-```
+
+```text
 src/{ServiceName}.php
 my_module.services.yml  (add service definition)
 ```
+
 - Use constructor promotion with readonly typed properties.
 - Inject via interface types, not concrete classes.
 
 ### Event Subscriber
-```
+
+```text
 src/EventSubscriber/{SubscriberName}Subscriber.php
 my_module.services.yml  (add tagged service)
 ```
+
 - Implement `EventSubscriberInterface`.
 - Tag: `{ name: event_subscriber }`.
 
 ### QueueWorker
-```
+
+```text
 src/Plugin/QueueWorker/{WorkerName}Worker.php
 ```
+
 - Use `#[QueueWorker]` attribute.
 - Implement idempotent `processItem()`.
 
 ### Update / Post-update hooks
-```
+
+```text
 my_module.install       (hook_update_N)
 my_module.post_update.php  (hook_post_update_NAME)
 ```

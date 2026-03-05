@@ -26,6 +26,7 @@ bash /home/sr/.codex/skills/sync-mainline/scripts/git-sync-mainline.sh [remote] 
   - if auto-detection fails, stop and ask user to provide `main_branch` explicitly (no fallback)
 
 Examples:
+
 - Auto-detect mainline from origin HEAD: `bash /home/sr/.codex/skills/sync-mainline/scripts/git-sync-mainline.sh`
 - Explicit master: `bash /home/sr/.codex/skills/sync-mainline/scripts/git-sync-mainline.sh origin master`
 - Explicit develop from upstream: `bash /home/sr/.codex/skills/sync-mainline/scripts/git-sync-mainline.sh upstream develop`
@@ -41,6 +42,7 @@ Examples:
 ## Output Contract
 
 Report:
+
 - Result: `merged` or `blocked`
 - Merge commit hash (if created)
 - Conflicted files (if any resolved)

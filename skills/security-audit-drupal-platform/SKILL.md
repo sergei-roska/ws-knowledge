@@ -38,23 +38,27 @@ Provide minimal, reversible fixes and deployment notes for each finding.
 ## Drupal-Specific Security Patterns
 
 ### Output Escaping
+
 - Use `#plain_text` instead of `#markup` for user-supplied content.
 - Use `{{ variable }}` in Twig (auto-escapes) — never `{{ variable|raw }}` for user data.
 - Use `Xss::filter()` or `Xss::filterAdmin()` only when rich text is explicitly required.
 - Prefer render arrays over string concatenation for HTML output.
 
 ### Input Validation
+
 - Validate in `validateForm()` — never trust `$form_state->getValue()` without checks.
 - Use typed constraints on entity fields instead of custom validation where possible.
 - Sanitize file uploads: validate extensions, MIME types, and file size in form handlers.
 
 ### Access Control
+
 - Every route must have `_permission`, `_role`, `_access_check`, or `_entity_access` requirement.
 - Entity queries: always call `accessCheck(TRUE)` unless explicitly building admin-only views.
 - Custom access checkers must return `AccessResult::allowed()` / `forbidden()` / `neutral()` with cacheability metadata.
 - CSRF: use `\Drupal::csrfToken()` for non-form mutation endpoints (e.g., custom REST routes).
 
 ### Dependency Audit
+
 - Run `composer audit` to check for known vulnerabilities.
 - Monitor Drupal Security Advisories (SA-CORE, SA-CONTRIB) for installed modules.
 - Flag stale contrib modules with no security coverage.

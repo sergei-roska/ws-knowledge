@@ -121,7 +121,9 @@ my_library:
 ### Conditional library loading
 
 ```yaml
+
 # In *.libraries.yml — external library
+
 cdn-fontawesome:
   css:
     theme:
@@ -133,7 +135,9 @@ cdn-fontawesome:
 ### Library overrides in info.yml
 
 ```yaml
+
 # my_theme.info.yml
+
 libraries-override:
   # Remove a library entirely
   classy/node: false
@@ -209,7 +213,9 @@ function my_theme_preprocess_html(array &$variables): void {
 ## Responsive Image Config Pattern
 
 ```yaml
+
 # responsive_image.styles.hero.yml
+
 id: hero
 label: 'Hero Banner'
 image_style_mappings:

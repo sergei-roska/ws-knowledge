@@ -13,12 +13,14 @@ This skill prioritizes architectural patterns over legacy Drupal hooks and globa
 ## Core Patterns
 
 ### 1. Strict Typing
+
 - Always declare `declare(strict_types=1);` as the first statement.
 - Use full type hints for all parameters, return types, and properties.
 - Use union types (`string|int`) and intersection types (`Countable&Iterator`) where appropriate.
 - Use `never` return type for methods that always throw or exit.
 
 ### 2. Constructor Property Promotion
+
 - Use promoted properties for DI to reduce boilerplate.
 - Combine with `readonly` for immutable service dependencies.
 ```php
@@ -29,11 +31,13 @@ public function __construct(
 ```
 
 ### 3. Readonly Properties & Classes
+
 - Declare services as `readonly class` if they are stateless (PHP 8.2+, Drupal 10.3+).
 - Use `readonly` for value objects, DTOs, and event data.
 - Readonly classes prevent accidental state mutation and improve static analysis.
 
 ### 4. Enums
+
 - Use backed enums (`string` or `int`) for fixed state values instead of string constants.
 - Use enum methods for behavior attached to states.
 ```php
@@ -53,6 +57,7 @@ enum ContentStatus: string {
 ```
 
 ### 5. Match Expressions
+
 - Use `match` instead of `switch` for type-safe, exhaustive comparisons.
 - `match` is strict (`===`), returns a value, and throws on unmatched cases.
 ```php
@@ -64,6 +69,7 @@ $result = match($entity->bundle()) {
 ```
 
 ### 6. Named Arguments
+
 - Use named arguments for readability in methods with many parameters or boolean flags.
 ```php
 $query->condition(field: 'status', value: 1);
@@ -71,10 +77,12 @@ $this->messenger()->addMessage(message: $this->t('Saved.'), type: 'status', repe
 ```
 
 ### 7. Native PHP Attributes
+
 - Use `#[Block]`, `#[Action]`, `#[QueueWorker]` attributes for plugin discovery (Drupal 10.2+).
 - Transition from Doctrine annotations to attributes in all new code.
 
 ### 8. Typed Class Constants (PHP 8.3)
+
 - Use typed constants for compile-time type safety.
 ```php
 final class ApiClient {
@@ -85,12 +93,14 @@ final class ApiClient {
 ```
 
 ### 9. Dependency Injection
+
 - Never use `\Drupal::service()` inside classes that support DI.
 - Use `create()` + `ContainerInterface` for plugins, `services.yml` for services.
 - Favor Service Decoration when augmenting core behavior instead of wide hook overrides.
 - Inject via interface types (`EntityTypeManagerInterface`), not concrete classes.
 
 ### 10. First-Class Callable Syntax
+
 - Use `$this->method(...)` syntax for callbacks instead of string-based references.
 ```php
 $items = array_filter($nodes, $this->isPublished(...));

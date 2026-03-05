@@ -17,7 +17,8 @@ Create a new custom module `gc_salesforce_webform` that intercepts webform submi
 2. Docroot: project uses `docroot/modules/custom/`.
 
 3. Generate skeleton:
-   ```
+
+   ```text
    gc_salesforce_webform/
    ├── config/
    │   ├── install/
@@ -59,4 +60,5 @@ Create a new custom module `gc_salesforce_webform` that intercepts webform submi
 - No `.module` file: all logic lives in services and plugins.
 
 ## Files Created: 9
-## Estimated time to scaffold: 15-20 minutes with this skill.
+
+## Estimated time to scaffold: 15-20 minutes with this skill

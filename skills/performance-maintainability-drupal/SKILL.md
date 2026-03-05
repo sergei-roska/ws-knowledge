@@ -30,6 +30,7 @@ Specify measurement points, success thresholds, and rollback conditions.
 ## Optimization Categories
 
 ### Cache Strategy
+
 - Validate `#cache` tags/contexts/max-age alignment with actual data variability.
 - Detect over-broad cache invalidation (e.g., clearing all caches instead of specific tags).
 - Ensure cacheability metadata bubbles correctly through render arrays.
@@ -37,23 +38,27 @@ Specify measurement points, success thresholds, and rollback conditions.
 - Use BigPipe placeholders for user-specific content (cart, login state) on otherwise cacheable pages.
 
 ### Query & Entity Load
+
 - Detect N+1 patterns: repeated `Node::load()` in loops → use `loadMultiple()` or preloading.
 - Detect expensive queries in frequently hit paths (Views with complex filters, uncached entity queries).
 - Prefer targeted entity queries with `->range()` over loading all results.
 - Use Views caching (tag-based or time-based) for listing pages.
 
 ### Render & Twig Pipeline
+
 - Minimize Twig template complexity on critical paths.
 - Avoid heavy PHP processing inside `hook_preprocess_*` — move to services.
 - Review `#attached` library usage for duplicate or unnecessary JS/CSS loading.
 
 ### Frontend Assets
+
 - Ensure CSS/JS aggregation is enabled in production (`system.performance` config).
 - Verify compiled theme assets are up to date and not re-compiled at runtime.
 - Use `defer` or `async` for non-critical JS where possible.
 - Check for duplicate library attachments across components.
 
 ### Maintainability
+
 - Flag high-complexity classes/functions that block safe iteration.
 - Flag duplicated logic across modules/themes.
 - Recommend low-risk extraction or simplification steps.

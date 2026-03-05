@@ -3,6 +3,7 @@
 ## Code Shapes
 
 ### Service with DI (services.yml)
+
 ```yaml
 services:
   my_module.example_service:
@@ -11,6 +12,7 @@ services:
 ```
 
 ### Service class
+
 ```php
 declare(strict_types=1);
 
@@ -28,6 +30,7 @@ final class ExampleService {
 ```
 
 ### Form (ConfigFormBase)
+
 ```php
 namespace Drupal\my_module\Form;
 
@@ -64,6 +67,7 @@ final class SettingsForm extends ConfigFormBase {
 ```
 
 ### Route definition
+
 ```yaml
 my_module.settings:
   path: '/admin/config/my-module/settings'
@@ -75,6 +79,7 @@ my_module.settings:
 ```
 
 ### Controller with entity upcasting
+
 ```yaml
 my_module.node_report:
   path: '/node/{node}/report'
@@ -90,6 +95,7 @@ my_module.node_report:
 ```
 
 ### Block plugin (attribute, Drupal 10.2+)
+
 ```php
 namespace Drupal\my_module\Plugin\Block;
 
@@ -118,6 +124,7 @@ final class ExampleBlock extends BlockBase {
 ```
 
 ### Event subscriber
+
 ```php
 namespace Drupal\my_module\EventSubscriber;
 
@@ -139,6 +146,7 @@ final class RequestSubscriber implements EventSubscriberInterface {
 ```
 
 ### Thin hook in .module delegating to service (D10 pattern)
+
 ```php
 use Drupal\my_module\Handler\NodeArticleEditFormHandler;
 
@@ -150,6 +158,7 @@ function my_module_form_node_article_edit_form_alter(&$form, FormStateInterface 
 ```
 
 ### Entity query (safe)
+
 ```php
 $nids = $this->entityTypeManager
   ->getStorage('node')
@@ -163,6 +172,7 @@ $nids = $this->entityTypeManager
 ```
 
 ### QueueWorker plugin (attribute, Drupal 10.3+)
+
 ```php
 namespace Drupal\my_module\Plugin\QueueWorker;
 
@@ -183,6 +193,7 @@ final class SyncWorker extends QueueWorkerBase {
 ```
 
 ### Render array with cache metadata
+
 ```php
 $build = [
   '#theme' => 'item_list',

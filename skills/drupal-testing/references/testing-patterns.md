@@ -1,6 +1,7 @@
 # Testing Patterns
 
 ## Unit Test
+
 ```php
 <?php
 
@@ -35,6 +36,7 @@ final class PayloadBuilderTest extends UnitTestCase {
 ```
 
 ## Kernel Test
+
 ```php
 <?php
 
@@ -82,6 +84,7 @@ final class ArticleQueryTest extends KernelTestBase {
 ```
 
 ## Functional Test
+
 ```php
 <?php
 
@@ -128,6 +131,7 @@ final class SettingsFormTest extends BrowserTestBase {
 ```
 
 ## WebDriver Test
+
 ```php
 <?php
 

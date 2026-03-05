@@ -11,18 +11,21 @@
 ## Phase 2: Gather Evidence (< 5 min)
 
 ### Error Logs
+
 ```bash
 drush watchdog:show --severity=error --count=20
 tail -100 /var/log/php-error.log   # or lando equivalent
 ```
 
 ### System Status
+
 ```bash
 drush status
 drush core:requirements --severity=error
 ```
 
 ### Recent Changes
+
 ```bash
 git log --oneline -10
 drush config:status
@@ -30,6 +33,7 @@ drush entity:updates
 ```
 
 ### Database
+
 ```bash
 drush sql:query "SELECT 1;"          # connectivity
 drush updatedb:status                 # pending updates
@@ -117,28 +121,37 @@ drush updatedb:status                 # pending updates
 ## Quick Reference: Emergency Commands
 
 ```bash
+
 # Kill maintenance mode
+
 drush state:set system.maintenance_mode 0 -y && drush cr
 
 # Rebuild container (when service definitions change)
+
 drush cr
 
 # Delete compiled Twig cache
+
 rm -rf sites/default/files/php/twig/ && drush cr
 
 # Delete compiled container
+
 rm -rf sites/default/files/php/ && drush cr
 
 # Reset admin password
+
 drush user:password admin "temp_password_change_me"
 
 # Enable a module stuck in broken state
+
 drush sql:query "DELETE FROM key_value WHERE collection='system.schema' AND name='broken_module';"
 drush cr
 
 # Re-run updates
+
 drush updatedb -y && drush cr
 
 # Full nuclear reset (local dev only)
+
 drush sql:drop -y && drush site:install -y && drush cr
 ```

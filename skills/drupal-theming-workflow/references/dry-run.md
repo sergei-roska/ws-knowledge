@@ -9,7 +9,8 @@ Add a responsive hero banner component to the Sun State Specialists theme using 
 1. Scope: new SDC component (`hero-banner`) with responsive background image, title, subtitle, and CTA button.
 
 2. Create component:
-   ```
+
+   ```text
    docroot/themes/custom/sun_state_specialists/components/hero-banner/
    ├── hero-banner.component.yml
    ├── hero-banner.twig
@@ -33,6 +34,7 @@ Add a responsive hero banner component to the Sun State Specialists theme using 
    - Desktop: full-width with overlay text.
 
 6. Use component in paragraph template:
+
    ```twig
    {{ include('sun_state_specialists:hero-banner', {
      title: content.field_title|render|trim,
@@ -44,9 +46,11 @@ Add a responsive hero banner component to the Sun State Specialists theme using 
    ```
 
 7. Build and validate:
+
    ```bash
    lando gulp build && lando drush cr
    ```
+
    Test at mobile/tablet/desktop widths. Verify `<picture>` sources.
 
 ## Output

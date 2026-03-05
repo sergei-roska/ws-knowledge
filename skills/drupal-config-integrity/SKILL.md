@@ -35,13 +35,16 @@ Run `drush cex` and confirm no unexpected diff. Run quality gates after changes.
 ## Environment Isolation Strategy
 
 ### settings.php overrides
+
 Use `$config['system.performance']['css']['preprocess']` style overrides for values that differ per environment but should not be in config exports.
 
 ### Config Split
+
 Use for environment-specific modules and config (e.g., `devel`, `stage_file_proxy` for local only).
 Keep split config in a separate directory (e.g., `config/local/`, `config/dev/`).
 
 ### Drupal Recipes
+
 Prefer Recipes for packaging discrete features as reusable units.
 Use `core-recipe-unpack` to manage recipe dependencies cleanly.
 Store recipes in `recipes/` directory at project root.

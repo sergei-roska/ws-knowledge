@@ -12,7 +12,8 @@ Write tests for `gc_salesforce_webform` module covering payload building (unit),
    - Settings form at `/admin/config/services/salesforce-webform` — needs HTTP → Functional test.
 
 2. Create structure:
-   ```
+
+   ```text
    tests/src/Unit/PayloadBuilderTest.php
    tests/src/Kernel/SalesforceQueueTest.php
    tests/src/Functional/SettingsFormTest.php
@@ -24,7 +25,8 @@ Write tests for `gc_salesforce_webform` module covering payload building (unit),
    - Functional: test access control (anonymous 403, admin 200), form submission saves config.
 
 4. Run:
-   ```
+
+   ```bash
    lando php vendor/bin/phpunit docroot/modules/custom/gc_salesforce_webform/tests/src/Unit/
    lando php vendor/bin/phpunit docroot/modules/custom/gc_salesforce_webform/tests/src/Kernel/
    lando php vendor/bin/phpunit docroot/modules/custom/gc_salesforce_webform/tests/src/Functional/

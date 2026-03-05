@@ -12,21 +12,27 @@ Refactor `docroot/modules/custom/gc_salesforce_webform/` to pass PHPCS (Drupal,D
    - No Psalm config — skip for this pass.
 
 2. Auto-fix formatting:
-   ```
+
+   ```bash
    phpcbf --standard=Drupal,DrupalPractice --extensions=php,module,inc,install docroot/modules/custom/gc_salesforce_webform/
    ```
+
    12 files fixed (whitespace, docblocks, trailing commas). Diff reviewed — no behavior changes.
 
 3. PHPCS remaining issues:
-   ```
+
+   ```bash
    phpcs --standard=Drupal,DrupalPractice --extensions=php,module,inc,install docroot/modules/custom/gc_salesforce_webform/
    ```
+
    3 findings: missing return types, `@param` mismatch. Fixed manually.
 
 4. PHPStan at target level:
-   ```
+
+   ```bash
    phpstan analyse --level=8 docroot/modules/custom/gc_salesforce_webform/
    ```
+
    5 errors: 2 nullability, 1 union type, 2 missing property types.
    Fixed with null checks, `instanceof` guards, typed `readonly` properties.
 
