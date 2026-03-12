@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/sr/Projects/dccourtscode"
+      ]
+    },
+    "mcp_server_mysql": {
+      "command": "/home/sr/Projects/dccourtscode/.cursor/mysql-mcp-wrapper.sh",
+      "args": [],
+      "env": {
+        "ALLOW_DELETE_OPERATION": "false",
+        "ALLOW_INSERT_OPERATION": "false",
+        "ALLOW_UPDATE_OPERATION": "false"
+      },
+      "working_directory": "/home/sr/Projects/dccourtscode"
+    }
+  }
+}
