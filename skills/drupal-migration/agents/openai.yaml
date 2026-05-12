@@ -1,0 +1,3 @@
+interface:
+  display_name: "Drupal Migration"
+  short_description: "Migrate API: source/process/destination plugins, YAML config, and drush migrate commands"
