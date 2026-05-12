@@ -32,3 +32,6 @@ yarn-error.log*
 lancedb/
 models/
 .mcp.json
+
+# Temporary and copy files
+*copy*

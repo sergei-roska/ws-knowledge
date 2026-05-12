@@ -1,0 +1,125 @@
+{
+  "mcpServers": {
+    "mysql": {
+      "command": "mysql-mcp-wrapper.sh",
+      "args": [],
+      "env": {
+        "MCP_SERVER_ROOT": "PATH_TO_MYSQL_SERVER",
+        "ALLOW_DELETE_OPERATION": "false",
+        "ALLOW_INSERT_OPERATION": "false",
+        "ALLOW_UPDATE_OPERATION": "false"
+      },
+      "working_directory": "PATH_TO_WORKING_DIRECTORY"
+    },
+    "drupal-runtime-inspect": {
+      "command": "node",
+      "args": [
+        "PATH_TO_DRUPAL_RUNTIME_INSPECT"
+      ]
+    },
+    "drupal-content-model": {
+      "command": "node",
+      "args": [
+        "PATH_TO_DRUPAL_CONTENT_MODEL"
+      ]
+    },
+    "drupal-config-intelligence": {
+      "command": "node",
+      "args": [
+        "PATH_TO_DRUPAL_CONFIG_INTELLIGENCE"
+      ]
+    },
+    "drupal-codebase-introspect": {
+      "command": "node",
+      "args": [
+        "PATH_TO_DRUPAL_CODEBASE_INTROSPECT"
+      ]
+    },
+    "drupal-operations-debug": {
+      "command": "node",
+      "args": [
+        "PATH_TO_DRUPAL_OPERATIONS_DEBUG"
+      ]
+    },
+    "sequential-thinking": {
+      "$typeName": "exa.cascade_plugins_pb.CascadePluginCommandTemplate",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "env": {}
+    },
+    "google-developer-knowledge": {
+      "$typeName": "exa.cascade_plugins_pb.CascadePluginCommandTemplate",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://developerknowledge.googleapis.com/mcp",
+        "--header",
+        "X-Goog-Api-Key: YOUR_API_KEY"
+      ],
+      "env": {}
+    },
+    "memorygraph": {
+      "command": "memorygraph",
+      "args": [],
+      "env": {}
+    },
+    "mcp-vector-search": {
+      "command": "PATH_TO_MCP_VECTOR_SEARCH_BIN",
+      "args": [
+        "mcp"
+      ],
+      "env": {
+        "MCP_ENABLE_FILE_WATCHING": "true"
+      }
+    },
+    "local-rag": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-local-rag"
+      ],
+      "env": {
+        "BASE_DIR": "/path/to/Documents/knowledge"
+      }
+    },
+    "n8n-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "n8n-mcp"
+      ],
+      "env": {
+        "MCP_MODE": "stdio",
+        "N8N_API_URL": "http://localhost:5678/",
+        "WEBHOOK_SECURITY_MODE": "moderate",
+        "N8N_API_KEY": "YOUR_N8N_API_KEY"
+      }
+    },
+    "gtm": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "gtm-mcp-server"
+      ],
+      "env": {
+        "GOOGLE_CLIENT_ID": "YOUR_GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET": "YOUR_GOOGLE_CLIENT_SECRET"
+      }
+    },
+    "analytics-mcp": {
+      "command": "pipx",
+      "args": [
+        "run",
+        "analytics-mcp"
+      ],
+      "env": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "PATH_TO_CREDENTIALS_JSON",
+        "GOOGLE_PROJECT_ID": "YOUR_PROJECT_ID"
+      }
+    }
+  }
+}

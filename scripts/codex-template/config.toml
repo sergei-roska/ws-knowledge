@@ -1,0 +1,23 @@
+# Project-scoped Codex configuration for dccourtscode.
+# Root AGENTS.md remains the primary instruction file.
+# Project-specific skills live in .codex/skills/.
+# Project-specific rule references live in .codex/rules/.
+
+[mcp_servers.mysql]
+command = "/bin/bash"
+args = ["-lc", "bash PATH_TO_MYSQL_WRAPPER"]
+enabled = true
+
+[mcp_servers.mysql.env]
+MYSQL_PROJECT_DIR = "PATH_TO_MYSQL_PROJECT_DIR"
+ALLOW_DELETE_OPERATION = "false"
+ALLOW_INSERT_OPERATION = "false"
+ALLOW_UPDATE_OPERATION = "false"
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]
+enabled = true
+
+[mcp_servers.memory.env]
+MEMORY_FILE_PATH = "PATH_TO_MEMORY_FILE"
