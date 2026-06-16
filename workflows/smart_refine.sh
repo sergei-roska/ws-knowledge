@@ -42,7 +42,7 @@ TITLE="Refiner"
 case "$PROVIDER" in
     google)
         # Cloud models in fallback order (first is primary)
-        GOOGLE_MODELS=("gemini-3.1-flash-lite-preview" "gemma-4-31b-it" "gemma-4-26b-a4b-it")
+        GOOGLE_MODELS=("gemini-3.5-flash" "gemma-4-31b-it" "gemma-4-26b-a4b-it")
         # Local fallback model if cloud is unavailable / quota exceeded
         LOCAL_FALLBACK_MODEL="gemma4:e4b"
         MODEL="${GOOGLE_MODELS[0]}"
