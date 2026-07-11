@@ -124,9 +124,11 @@ fi
 
 # --- 3. Construct Prompt ---
 PROMPT="Act as a professional editor to refine, polish, and improve the following text. 
-Maintain the original language and tone, correcting grammar and enhancing the flow. 
-If the content is toxic or aggressive, rephrase it to be professional and constructive 
-while preserving the core message. Return ONLY the refined text.
+Maintain the original language, tone, and approximate length—do not add unnecessary fluff, explanations, or filler. 
+Correct grammar, enhance flow, and keep the output concise. 
+Strictly avoid book typography: do not use em-dashes (—), en-dashes (–), ellipsis symbols (…), or typographic curly/guillemet quotes (« » „ “). Use only standard keyboard ASCII characters: straight quotes (\"), standard hyphens (-), and regular dots (...) for punctuation.
+If the content is toxic or aggressive, rephrase it to be professional and constructive while preserving the core message. 
+Return ONLY the refined text.
 
 Text to polish:
 $TEXT"
