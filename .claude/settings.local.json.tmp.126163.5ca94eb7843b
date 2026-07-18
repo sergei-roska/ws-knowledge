@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /home/sr/Projects/Workspace/ws-knowledge/.claude/skills /home/sr/Projects/psp-drupal/.cursor/skills)",
+      "Bash(cp -r /home/sr/.claude/skills/drupal-views-safe-edit /home/sr/Projects/Workspace/ws-knowledge/.claude/skills/)",
+      "Bash(cp -r /home/sr/.claude/skills/drupal-views-safe-edit /home/sr/Projects/psp-drupal/.cursor/skills/)",
+      "Read(//home/sr/Projects/psp-drupal/.cursor/skills/**)",
+      "WebSearch",
+      "Bash(git mv *)",
+      "Bash(git add *)"
+    ]
+  },
+  "disabledMcpjsonServers": [
+    "mcp-vector-search"
+  ]
+}
