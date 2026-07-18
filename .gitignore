@@ -35,3 +35,4 @@ models/
 
 # Temporary and copy files
 *copy*
+.claude/settings.local.json*
