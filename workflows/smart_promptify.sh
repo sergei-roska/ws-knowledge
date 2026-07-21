@@ -135,7 +135,7 @@ require_cmd jq
 
 case "$PROVIDER" in
     google)
-        GOOGLE_MODELS=("gemini-3.5-flash" "gemma-4-31b-it" "gemma-4-26b-a4b-it")
+        GOOGLE_MODELS=("gemini-3.5-flash-lite" "gemma-4-31b-it" "gemma-4-26b-a4b-it")
         LOCAL_FALLBACK_MODEL="gemma4:e4b"
         MODEL="${GOOGLE_MODELS[0]}"
         API_KEY_FILE="$HOME/.google_api_key"
