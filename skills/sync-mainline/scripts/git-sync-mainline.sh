@@ -5,15 +5,41 @@ set -euo pipefail
 REMOTE="${1:-origin}"
 MAIN_BRANCH="${2:-}"
 
+# Auto-detect MAIN_BRANCH if not explicitly passed as second argument
 if [[ -z "${MAIN_BRANCH}" ]]; then
+  # 1. Check if AGENTS.md specifies a mainline/sync branch
+  if [[ -f "AGENTS.md" ]]; then
+    agents_branch="$(grep -iE '(mainline|mainline_branch|target_branch|sync_branch):\s*' AGENTS.md | head -n1 | sed -E 's/.*:\s*`?([a-zA-Z0-9_\/-]+)`?.*/\1/' || true)"
+    if [[ -n "${agents_branch}" ]]; then
+      MAIN_BRANCH="${agents_branch}"
+      echo "Detected mainline branch '${MAIN_BRANCH}' from AGENTS.md"
+    fi
+  fi
+fi
+
+if [[ -z "${MAIN_BRANCH}" ]]; then
+  # 2. Check remote HEAD symbolic reference
   detected_head="$(git symbolic-ref --quiet --short "refs/remotes/${REMOTE}/HEAD" 2>/dev/null || true)"
   if [[ -n "${detected_head}" ]]; then
     MAIN_BRANCH="${detected_head#${REMOTE}/}"
-  else
-    echo "Could not determine mainline branch for remote '${REMOTE}'."
-    echo "Pass it explicitly: bash \"\$0\" ${REMOTE} <main_branch>"
-    exit 2
   fi
+fi
+
+if [[ -z "${MAIN_BRANCH}" ]]; then
+  # 3. Probe common remote branch names (stage, dev, develop, main, master)
+  for candidate in stage dev develop main master; do
+    if git show-ref --verify --quiet "refs/remotes/${REMOTE}/${candidate}"; then
+      MAIN_BRANCH="${candidate}"
+      echo "Auto-detected active remote branch '${MAIN_BRANCH}'"
+      break
+    fi
+  done
+fi
+
+if [[ -z "${MAIN_BRANCH}" ]]; then
+  echo "Could not determine mainline branch for remote '${REMOTE}'."
+  echo "Pass it explicitly: bash \"\$0\" ${REMOTE} <main_branch>"
+  exit 2
 fi
 
 current_branch="$(git branch --show-current)"

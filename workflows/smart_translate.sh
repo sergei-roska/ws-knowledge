@@ -46,7 +46,7 @@ case "$PROVIDER" in
         # Local fallback model if cloud is unavailable / quota exceeded
         LOCAL_FALLBACK_MODEL="translategemma:12b"
         MODEL="${GOOGLE_MODELS[0]}"
-        API_KEY_FILE="$HOME/.google_api_key"
+        API_KEY_FILE="$HOME/.config/agent-forge/gemini.key"
         TITLE="Cloud (${MODEL})"
         ;;
     ollama)
@@ -132,7 +132,7 @@ if [ -z "${TEXT//[[:space:]]/}" ]; then
 fi
 
 # --- 4. Determine Direction ---
-if [[ "$TEXT" =~ [а-яА-ЯёЁ] ]]; then
+if grep -qP '[\x{0400}-\x{04FF}]' <<< "$TEXT"; then
     # Russian -> Saved Context
     SL="Russian"; SC="ru"; TL="$STATE_NAME"; TC="$STATE_CODE"
 else

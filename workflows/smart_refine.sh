@@ -46,7 +46,7 @@ case "$PROVIDER" in
         # Local fallback model if cloud is unavailable / quota exceeded
         LOCAL_FALLBACK_MODEL="gemma4:e4b"
         MODEL="${GOOGLE_MODELS[0]}"
-        API_KEY_FILE="$HOME/.google_api_key"
+        API_KEY_FILE="$HOME/.config/agent-forge/gemini.key"
         TITLE="Cloud (${MODEL})"
         ;;
     ollama)
