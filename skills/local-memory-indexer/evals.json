@@ -1,0 +1,39 @@
+{
+  "skill_name": "local-memory-indexer",
+  "version": "1.0.0",
+  "description": "Contract tests for safe local-memory-indexer orchestration.",
+  "evals": [
+    {
+      "id": "EVAL-LMI-001",
+      "description": "Start an index and retain the asynchronous run identifier.",
+      "eval_type": "happy_path",
+      "input": {"operation": "start", "project_path": "/workspace/repo", "start_options": {"enrich": false}},
+      "expected_output": {"status": "IN_PROGRESS", "operation": "start"},
+      "assertions": ["Calls start_indexing", "Returns the tool run_id", "Does not call a retrieval tool"]
+    },
+    {
+      "id": "EVAL-LMI-002",
+      "description": "Resume replaces the old run identifier before polling.",
+      "eval_type": "edge_case",
+      "input": {"operation": "resume", "project_path": "/workspace/repo", "run_id": "old-run"},
+      "expected_output": {"operation": "resume"},
+      "assertions": ["Calls resume_indexing with project_path", "Uses returned data.run_id for subsequent status calls"]
+    },
+    {
+      "id": "EVAL-LMI-003",
+      "description": "Block destructive deletion while an indexing run is active.",
+      "eval_type": "boundary_case",
+      "input": {"operation": "delete", "project_path": "/workspace/repo", "status_response": {"data": {"status": "running"}}},
+      "expected_output": {"status": "CONFIRMATION_REQUIRED", "operation": "delete"},
+      "assertions": ["Does not call delete_project_index"]
+    },
+    {
+      "id": "EVAL-LMI-004",
+      "description": "Reject a traversal-form project path before MCP invocation.",
+      "eval_type": "invalid_input",
+      "input": {"operation": "start", "project_path": "/workspace/../etc"},
+      "expected_output": {"status": "INVALID_INPUT", "error_code": "PATH_TRAVERSAL"},
+      "assertions": ["Does not call start_indexing"]
+    }
+  ]
+}

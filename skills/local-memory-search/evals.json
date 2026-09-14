@@ -1,0 +1,39 @@
+{
+  "skill_name": "local-memory-search",
+  "version": "1.0.0",
+  "description": "Contract tests for safe local-memory-search query orchestration.",
+  "evals": [
+    {
+      "id": "EVAL-LMS-001",
+      "description": "Route an exact symbol lookup to keyword search after index inspection.",
+      "eval_type": "happy_path",
+      "input": {"intent": "search", "project_path": "/workspace/repo", "query": "Drupal\\node\\Entity\\Node"},
+      "expected_output": {"status": "SUCCESS", "intent": "search"},
+      "assertions": ["Calls index_status first", "Calls search_keyword", "Returns warnings and mode"]
+    },
+    {
+      "id": "EVAL-LMS-002",
+      "description": "Prevent the documented pagination internal-error branch.",
+      "eval_type": "boundary_case",
+      "input": {"intent": "search", "project_path": "/workspace/repo", "query": "database", "offset": 10, "prior_pagination": {"total_returned": 10}},
+      "expected_output": {"status": "INVALID_INPUT", "error_code": "PAGINATION_OUT_OF_RANGE"},
+      "assertions": ["Does not call a search MCP tool"]
+    },
+    {
+      "id": "EVAL-LMS-003",
+      "description": "Surface a fallback mode as degraded rather than semantic success.",
+      "eval_type": "edge_case",
+      "input": {"intent": "search", "project_path": "/workspace/repo", "query": "database", "tool_response": {"strategy_weights": {"mode": "sqlite_fallback"}, "warnings": ["embedding_unavailable"]}},
+      "expected_output": {"status": "DEGRADED", "mode": "sqlite_fallback"},
+      "assertions": ["Preserves warnings"]
+    },
+    {
+      "id": "EVAL-LMS-004",
+      "description": "Reject a relative project path before it is resolved against server cwd.",
+      "eval_type": "invalid_input",
+      "input": {"intent": "diagnose", "project_path": "src"},
+      "expected_output": {"status": "INVALID_INPUT", "error_code": "PROJECT_PATH_NOT_ABSOLUTE"},
+      "assertions": ["Does not call an MCP tool"]
+    }
+  ]
+}
