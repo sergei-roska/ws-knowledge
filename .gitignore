@@ -1,4 +1,4 @@
-# OS specific files
+# OS files
 .DS_Store
 .DS_Store?
 ._*
@@ -19,7 +19,7 @@ docs/
 *.pem
 *.cert
 
-# Logs and databases
+# Logs and local databases
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -27,12 +27,11 @@ yarn-error.log*
 *.sqlite
 *.db
 
-# MCP Vector Search index directory
+# Local MCP and vector index data
 .mcp-vector-search/
 lancedb/
 models/
 .mcp.json
 
-# Temporary and copy files
-*copy*
+# Local Claude settings
 .claude/settings.local.json*

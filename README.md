@@ -1,44 +1,49 @@
-# Workspace Knowledge Base & AI Agent Skills
+# Workspace Knowledge Base
 
-This repository serves as a central knowledge base, a collection of specifications, and a toolkit for efficient development (primarily Drupal, React, Tailwind) and AI agent context management.
+A collection of reusable AI agent skills. Each skill lives in its own directory under `skills/` and is defined by a `SKILL.md` file (frontmatter with `name` and `description`, followed by the instructions). Some skills also ship supporting files such as references or evaluation data.
 
-## 📂 Project Structure
+## Skills
 
-### 🧠 Skills (`skills/`)
-Over 30 specialized skills for AI agents, grouped by domain:
-- **Drupal & PHP:** SDC (Single Directory Components), migrations, architectural patterns, PHP 8.4, security audits.
-- **Frontend & Design:** Tailwind CSS v4, Figma (integration and implementation), UI/UX standards, React/Next.js.
-- **Data & Platform:** Supabase/PostgreSQL, Vercel, Azure/Acquia CI/CD.
-- **AI & Workflow:** Documentation processing (OpenAI), knowledge management (Knowledge Graph), memory orchestration.
+### Concurrency and orchestration
+- `actor-model` - concurrent actor model with isolated inboxes and typed messages
+- `supervisor-tree` - supervision trees with restart strategies
+- `fork-join` - parallel fan-out with barrier synchronization
+- `finite-state-machine` - deterministic multi-phase execution with explicit transitions
+- `serial-item-processor` - sequential processing with strict per-item isolation
+- `pipes-and-filters` - decoupled, stateless transformation stages
+- `divide-and-conquer` - recursive decomposition into independent subproblems
+- `raft-quorum-consensus` - quorum-based consensus for multi-agent decisions
 
-### 📜 Rules (`rules/`)
-Architectural policies and invariants:
-- **Anti-overengineering:** Three levels of strictness (soft, strict, paranoid) to prevent redundant solutions.
-- **Drupal SDC Discipline:** Strict rules for asset management, composition, and component schemas.
-- **Memory Policy:** Guidelines for memory recording and routing (Memory Write Policy, Three-layer Routing).
+### Reliability
+- `circuit-breaker` - failure thresholds, cooldown probes, fallback routing
+- `rate-limiter-throttler` - token bucket and sliding window rate limiting
+- `idempotency-key-filter` - exactly-once semantics for tool calls and mutations
+- `saga-transaction-manager` - multi-step operations with compensating actions
+- `two-phase-commit` - atomic multi-file mutations with unanimous validation
+- `dead-letter-queue` - isolation of failing tasks with diagnostic dumps
+- `copy-on-write` - speculative editing in isolated copies
+- `lru-context-pruner` - least-recently-used pruning of LLM working context
 
-### ⚙️ Workflows (`workflows/`)
-A collection of 20+ scripts and guides for automation:
-- **Drupal DevOps:** Deployment (`drupal-deploy.sh`), database reset (`db-reset.sh`), configuration export.
-- **Git Flow:** Feature start (`feature-start.sh`), synchronization with mainline (`sync-main.sh`), change pushing.
-- **Smart Scripts:** Advanced tools for refactoring (`smart_refine.sh`), prompt management (`smart_promptify.sh`), and regex operations.
-- **Analysis:** Code quality checks (`phpcs-check.sh`) and security audits.
+### Design and planning
+- `design-by-contract` - preconditions, postconditions, and invariants
+- `event-sourcing` - append-only event streams and deterministic replay
+- `blast-radius-analyzer` - dependency-based write surface for a feature ticket
+- `hierarchical-work-decomposition` - goal to master plan, milestones, epics, and tasks
+- `investigate-before-asking` - answer clarifying questions from the repo before asking the user
+- `mockup-to-spec` - implementation specs derived from a working mockup, with a coverage gate
 
-### 📝 Specifications
-Key specifications located in the root directory:
-- `spec-codex-model-selection.md` — Choosing coding models.
-- `spec-implementation-spec-authoring.md` — Standards for authoring implementation specs.
-- `spec-skill-evaluation.md` — Skill evaluation methodology.
+### Code intelligence
+- `codebase-indexing` - AST and semantic vector indexing via the local-memory-indexer MCP server
+- `codebase-search` - hybrid vector and keyword search with caller and callee tracing
+- `entity-query-analyzer` - static audit of Drupal EntityQuery and entity load patterns
 
-## 🧠 Memory System
+### Drupal and PHP
+- `performance-maintainability-drupal` - production-safe performance and maintainability review
 
-The project implements a hybrid context management system:
-1. **Knowledge Graph** — Structural relationships between entities and documentation.
-2. **Vector Search (LanceDB)** — Semantic search across code and patterns using Tree-sitter for AST-aware chunking.
-3. **Local RAG** — Full-text search across archives and documentation.
+### Agents
+- `agent-factory` - orchestration for creating skills, prompts, and reviews
 
-## 🚀 Usage
-
-1. **MCP Configuration:** Core servers (vector-search, memorygraph, n8n) are configured in `scripts/mcp/mcp.json`.
-2. **Local Index:** The vector search index is stored in `.mcp-vector-search/` and `lancedb/` (ignored by git).
-3. **Command Line:** Use scripts from the `workflows/` directory for daily operations. It is recommended to add the `workflows/` path to your `$PATH`.
+### Development environments
+- `provision-ddev` - DDEV environment provisioning and verification
+- `provision-lando` - Lando environment provisioning and verification
+- `provision-local-platform` - orchestration across DDEV, Lando, and Docker Compose
