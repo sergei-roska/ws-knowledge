@@ -1,3 +1,0 @@
-interface:
-  display_name: "Security Audit Drupal Platform"
-  short_description: "Secrets, access, and dependency risk audit for Drupal"
